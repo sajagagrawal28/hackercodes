@@ -1,0 +1,97 @@
+This is my Hackerrank code for rotating the array left side on a given input times through use of linkedlist
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node*next;
+    struct node* prev;
+};
+struct node*head=NULL;
+
+struct node*createnode(int val){
+    struct node*temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=val;
+    temp->next=NULL;
+    temp->prev=NULL;
+    return temp;
+}
+
+void insert(int v){
+    struct node*newnode=createnode(v);
+    if(head==NULL){
+        head=newnode;
+    }
+    else{
+        struct node*p=head;
+        while(p->next!=NULL){
+            p=p->next;
+        }
+        p->next=newnode;
+        newnode->prev=p;
+        p->prev=(newnode->prev)->prev;
+        newnode->next=NULL;
+    }
+    
+}
+void rotation(){
+    struct node*s=head;
+    struct node*t=head;
+    struct node*u=head->next;
+    
+    while(t->next!=NULL){
+        t=t->next;
+    }
+    t->next=s;
+    head=u;
+    head->prev=NULL;
+    if((head->next)!=NULL){
+        (head->next)->prev=head;
+    }
+    s->prev=t;
+    t->prev=(s->prev)->prev;
+    s->next=NULL;
+    
+}
+void left_r(int b[],int d,int n){
+    for(int i=0;i<n;i++){
+        insert(b[i]);
+    }
+    for(int l=0;l<d;l++){
+        rotation();
+    }
+    struct node*c=head;
+    int q=0;
+    int r[n];
+    while(c!=NULL){
+        r[q]=c->data;
+        c=c->next;
+        q++;
+    }
+    for(int f=0;f<n;f++){
+        printf("%d ",r[f]);
+    }
+    
+}
+int main(){
+    int n,d,input;
+    scanf("%d %d",&n,&d);
+    
+    int arr[n];
+    for(int g=0;g<n;g++){
+        scanf("%d",&input);
+        if(input>=1 && input<=1000000){
+            arr[g]=input;
+        }
+    }
+    if(n>=1 && n<=100000){
+        if(d>=1 && d<=n){
+            
+          left_r(arr,d,n);
+                        
+        }
+            
+    }
+    
+    return 0;
+    
+}
