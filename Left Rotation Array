@@ -1,4 +1,4 @@
-This is my Hackerrank code for rotating the array left side on a given input times through use of linkedlist
+//This is my Hackerrank code for rotating the array left side on a given array
 #include<stdio.h>
 #include<stdlib.h>
 struct node{
